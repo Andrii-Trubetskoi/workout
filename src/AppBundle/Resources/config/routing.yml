@@ -1,0 +1,8 @@
+user:
+    path:     /user
+    defaults: { _controller: AppBundle:User:index }
+
+user_create:
+    path:     /user/create
+    defaults: { _controller: AppBundle:User:create }
+    methods: [GET, POST]
