@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,7 +44,7 @@ class UserController extends Controller
             ));
         }
 
-        return $this->render('@App/user/create.html.twig', [
+        return $this->render('@App/user/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -74,8 +75,24 @@ class UserController extends Controller
             ));
         }
 
-        return $this->render('@App/user/create.html.twig', [
+        return $this->render('@App/user/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction(User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl(
+            'user'
+        ));
     }
 }
