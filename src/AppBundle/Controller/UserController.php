@@ -47,4 +47,35 @@ class UserController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return Response
+     */
+    public function editAction(Request $request, User $user)
+    {
+        $form = $this->createFormBuilder($user)
+            ->add('username', TextType::class)
+            ->add('password', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Edit User'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(
+                'user_edit', ['id' => $user->getId()]
+            ));
+        }
+
+        return $this->render('@App/user/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
