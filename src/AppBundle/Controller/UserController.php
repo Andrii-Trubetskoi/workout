@@ -70,9 +70,11 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl(
-                'user_edit', ['id' => $user->getId()]
-            ));
+            return $this->redirect(
+                $this->generateUrl('user_edit', [
+                    'id' => $user->getId(),
+                ])
+            );
         }
 
         return $this->render('@App/user/form.html.twig', [
