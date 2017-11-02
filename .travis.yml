@@ -16,6 +16,6 @@ before_script:
 
 script:
   - if [ "$TARGET" = "phpunit" ]; then composer install --no-interaction --prefer-source; fi
-  - if [ "$TARGET" = "phpunit" ]; then ./vendor/bin/phpunit phpunit.xml.dist --coverage-clover=coverage.clover; fi
+  - if [ "$TARGET" = "phpunit" ]; then phpunit phpunit.xml.dist --coverage-clover=coverage.clover; fi
   - if [ "$TARGET" = "phpunit" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [ "$TARGET" = "phpunit" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
