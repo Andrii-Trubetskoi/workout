@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        return new Response('list user');
+        return new Response('<h1>list user</h1>');
     }
 
     /**
