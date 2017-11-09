@@ -1,7 +1,8 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+    test_db_path: "%kernel.cache_dir%/db.sqlite"
+    default_db_path: "%kernel.cache_dir%/Resources/private/tests/snapshot.sqlite"
 
 services:
     # default configuration for services in *this* file
@@ -29,7 +30,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+    AppBundle\Command\LoadTestFixtures:
+        calls:
+            - { method: 'setKernel', arguments: [ "@kernel" ] }
+            - { method: 'setDefaultPath', arguments: [ "%default_db_path%" ] }
+            - { method: 'setTestDbPath', arguments: [ "%test_db_path%" ] }
+        tags:
+            - { name: console.command }
+    app.load_test_fixtures:
+        public: true
+        alias: AppBundle\Command\LoadTestFixtures
+

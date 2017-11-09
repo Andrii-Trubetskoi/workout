@@ -46,9 +46,8 @@ class CategoryController extends Controller
 
             return new Response($category);
         }
+
         return new Response('<h1>Have no content</h1>');
-
-
     }
 
     public function deleteAction(Category $category)

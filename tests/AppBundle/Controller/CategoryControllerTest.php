@@ -25,7 +25,7 @@ class CategoryControllerTest extends AbstractControllerTest
 
     public function testCategoryEdit()
     {
-        $crawler = $this->client->request(Request::METHOD_PUT, '/category/1');
+        $crawler = $this->client->request(Request::METHOD_PUT, '/category/8');
 
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Have no content', $crawler->filter('h1')->text());
