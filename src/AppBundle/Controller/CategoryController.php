@@ -18,24 +18,45 @@ class CategoryController extends Controller
     {
         $params = [];
         $content = $request->getContent();
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $params = json_decode($content, true); // 2nd param to get as array
+            $category = new Category();
+
+            $category->setName($params['name']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return new Response($category, Response::HTTP_OK);
         }
-
-        $category = new Category();
-
-        $category->setName($params['name']);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
-        $em->flush();
-
-        return new Response($category);
+        return new Response('<h1>Have no content</h1>');
     }
 
-    public function editAction(Request $request)
+    public function editAction(Request $request, Category $category)
     {
+        $params = [];
+        $content = $request->getContent();
+        if (!empty($content)) {
+            $params = json_decode($content, true); // 2nd param to get as array
+            $category->setName($params['name']);
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return new Response($category);
+        }
+        return new Response('<h1>Have no content</h1>');
+
+
+    }
+
+    public function deleteAction(Category $category)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+
+        return new Response('<h1>Category was deleted</h1>');
     }
 }

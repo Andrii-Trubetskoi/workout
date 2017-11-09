@@ -33,4 +33,18 @@ category:
 category_create:
     path:     /category/create
     defaults: { _controller: AppBundle:Category:create }
-    methods: [POST, GET]
+    methods: [POST]
+
+category_edit:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Category:edit }
+    methods: [PUT]
+    requirements:
+      id: '\d+'
+
+category_delete:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Category:delete }
+    methods: [DELETE]
+    requirements:
+      id: '\d+'
