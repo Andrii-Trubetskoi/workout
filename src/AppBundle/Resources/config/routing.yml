@@ -24,3 +24,13 @@ user_delete:
     methods: [DELETE]
     requirements:
       id: '\d+'
+
+category:
+    path:     /category
+    defaults: { _controller: AppBundle:Category:index}
+    methods: [GET]
+
+category_create:
+    path:     /category/create
+    defaults: { _controller: AppBundle:Category:create }
+    methods: [POST, GET]
