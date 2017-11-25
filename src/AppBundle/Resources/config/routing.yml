@@ -33,7 +33,7 @@ category:
 category_create:
     path:     /category/create
     defaults: { _controller: AppBundle:Category:create }
-    methods: [POST]
+    methods: [GET, POST]
 
 category_edit:
     path:     /category/{id}

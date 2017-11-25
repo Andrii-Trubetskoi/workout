@@ -16,25 +16,28 @@ class CategoryController extends Controller
 
     public function createAction(Request $request)
     {
-        $params = [];
-        $content = $request->getContent();
-        if (!empty($content)) {
-            $params = json_decode($content, true); // 2nd param to get as array
-            $category = new Category();
+        $category = new Category();
 
-            $category->setName($params['name']);
+        $form = $this->createForm('AppBundle\Form\CategoryType', $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            return new Response($category, Response::HTTP_OK);
+
+            return $this->redirectToRoute('category_create');
         }
-        return new Response('<h1>Have no content</h1>');
+
+        return $this->render('category/new.html.twig', array(
+            'category' => $category,
+            'form' => $form->createView(),
+        ));
     }
 
     public function editAction(Request $request, Category $category)
     {
-        $params = [];
         $content = $request->getContent();
         if (!empty($content)) {
             $params = json_decode($content, true); // 2nd param to get as array
