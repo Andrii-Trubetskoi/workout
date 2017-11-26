@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Category</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="control-group formSep">
+        <label class="control-label">
+            {{ form_label(form.name, 'Name:') }}
+        </label>
+        <div class="controls text_line">
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="error">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+
+    <div class="control-group formSep">
+        <label class="control-label">
+            {{ form_label(form.date, 'Date:') }}
+        </label>
+        <div class="controls text_line">
+            {{ form_widget(form.date) }}
+        </div>
+        <div class="error">
+            {{ form_errors(form.date) }}
+        </div>
+    </div>
+
+    <input class="btn btn-success" type="submit" value="Create category"/>
+    {{ form_end(form) }}
+
+{% endblock %}

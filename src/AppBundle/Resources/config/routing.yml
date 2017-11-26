@@ -1,0 +1,50 @@
+homepage:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
+user:
+    path:     /user
+    defaults: { _controller: AppBundle:User:index }
+
+user_create:
+    path:     /user/create
+    defaults: { _controller: AppBundle:User:create }
+    methods: [GET, POST]
+
+user_edit:
+    path:     /user/{id}
+    defaults: { _controller: AppBundle:User:edit }
+    methods: [PUT]
+    requirements:
+      id: '\d+'
+
+user_delete:
+    path:     /user/{id}
+    defaults: { _controller: AppBundle:User:delete }
+    methods: [DELETE]
+    requirements:
+      id: '\d+'
+
+category:
+    path:     /category
+    defaults: { _controller: AppBundle:Category:index}
+    methods: [GET]
+
+category_create:
+    path:     /category/create
+    defaults: { _controller: AppBundle:Category:create }
+    methods: [GET, POST]
+
+category_edit:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Category:edit }
+    methods: [PUT]
+    requirements:
+      id: '\d+'
+
+category_delete:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Category:delete }
+    methods: [DELETE]
+    requirements:
+      id: '\d+'
