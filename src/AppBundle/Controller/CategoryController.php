@@ -22,7 +22,6 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -39,6 +38,7 @@ class CategoryController extends Controller
     public function editAction(Request $request, Category $category)
     {
         $content = $request->getContent();
+        dump($content);
         if (!empty($content)) {
             $params = json_decode($content, true); // 2nd param to get as array
             $category->setName($params['name']);

@@ -20,7 +20,7 @@ class CategoryControllerTest extends AbstractControllerTest
         $crawler = $this->client->request(Request::METHOD_POST, '/category/create');
 
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-        $this->assertContains('Have no content', $crawler->filter('h1')->text());
+        $this->assertContains('Category', $crawler->filter('h1')->text());
     }
 
     public function testCategoryEdit()
@@ -36,5 +36,13 @@ class CategoryControllerTest extends AbstractControllerTest
         $this->client->request(Request::METHOD_DELETE, '/category/101');
 
         $this->assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testCategoryDelete()
+    {
+        $crawler = $this->client->request(Request::METHOD_DELETE, '/category/8');
+
+        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('Category was deleted', $crawler->filter('h1')->text());
     }
 }
