@@ -48,3 +48,13 @@ category_delete:
     methods: [DELETE]
     requirements:
       id: '\d+'
+
+exercise:
+    path:     /exercises
+    defaults: { _controller: AppBundle:Exercise:index }
+    methods: [GET]
+
+exercise_create:
+    path:     /exercises/create
+    defaults: { _controller: AppBundle:Exercise:create }
+    methods: [GET, POST]
