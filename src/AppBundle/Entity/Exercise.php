@@ -8,9 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExerciseRepository")
  */
-class Category
+class Exercise
 {
     /**
      * @var int
@@ -43,9 +43,22 @@ class Category
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="Exercise", mappedBy="category")
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 500,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
-    private $exercises;
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="exercises")
+     */
+    private $category;
 
     public function __construct()
     {
@@ -100,5 +113,21 @@ class Category
     public function setDate($date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDesctiption()
+    {
+        return $this->desctiption;
+    }
+
+    /**
+     * @param string $desctiption
+     */
+    public function setDesctiption($desctiption)
+    {
+        $this->desctiption = $desctiption;
     }
 }
