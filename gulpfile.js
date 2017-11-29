@@ -11,7 +11,7 @@ gulp.task('styles', () => {
   let sassFiles = './assets/styles/**/*.scss'
   let cssDest = './web/styles/'
 
-  gulp.src(sassFiles)
+  return gulp.src(sassFiles)
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest(cssDest))
 })
