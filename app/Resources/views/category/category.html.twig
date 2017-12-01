@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ category.name }}</h1>
+
+    <div class="jumbotron">
+        <ul class="nav nav-pills">
+            {% for exercise in exercises %}
+                <li>
+                    <a href="#">{{ exercise.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

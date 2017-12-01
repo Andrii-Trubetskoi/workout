@@ -30,6 +30,13 @@ category:
     defaults: { _controller: AppBundle:Category:index}
     methods: [GET]
 
+category_single:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Category:single}
+    methods: [GET]
+    requirements:
+      id: '\d+'
+
 category_create:
     path:     /category/create
     defaults: { _controller: AppBundle:Category:create }
