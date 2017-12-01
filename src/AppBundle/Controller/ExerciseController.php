@@ -30,7 +30,6 @@ class ExerciseController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($exercise);
             $em->flush();
 
@@ -43,5 +42,4 @@ class ExerciseController extends Controller
             'form' => $form->createView(),
         ));
     }
-
 }

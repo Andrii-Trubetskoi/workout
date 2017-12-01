@@ -16,7 +16,7 @@ gulp.task('styles', () => {
     .pipe(gulp.dest(cssDest))
 })
 
-gulp.task('scripts', function () {
+gulp.task('scripts', () => {
 
   const browserify = require('browserify')
   const babelify = require('babelify')
@@ -32,4 +32,9 @@ gulp.task('scripts', function () {
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('./web/js'))
+})
+
+gulp.task('watch', ['styles', 'scripts'], () => {
+  gulp.watch('./assets/styles/**/*.scss', ['styles'])
+  gulp.watch('./assets/js/index.js', ['scripts'])
 })

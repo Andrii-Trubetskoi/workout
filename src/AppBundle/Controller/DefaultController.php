@@ -18,6 +18,5 @@ class DefaultController extends Controller
             'categorysFilter' => $categorysFilter,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
         ]);
-
     }
 }
