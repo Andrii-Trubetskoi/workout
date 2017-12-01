@@ -10,29 +10,29 @@ class CategoryRepository extends EntityRepository
     {
         $result = [];
         $qb = $this->createQueryBuilder('category');
-        $q = $request->query->get('q_name');
-        $q_date = $request->query->get('q_date');
+        $qName = $request->query->get('q_name');
+        $qDate = $request->query->get('q_date');
 
-        if ($q_date) {
-            $q_date = date_create_from_format('Y-m-d', $q_date);
+        if ($qDate) {
+            $qDate = date_create_from_format('Y-m-d', $qDate);
         }
 
-        if ($q && !$q_date) {
+        if ($qName && !$qDate) {
             $qb
                 ->where('category.name = :name')
-                ->setParameter(':name', $q);
+                ->setParameter(':name', $qName);
             $result = $qb->getQuery()->getResult();
-        } elseif ($q_date && !$q) {
+        } elseif ($qDate && !$qName) {
             $qb
                 ->where('category.date = :date')
-                ->setParameter(':date', $q_date);
+                ->setParameter(':date', $qDate);
             $result = $qb->getQuery()->getResult();
-        } elseif ($q_date && $q) {
+        } elseif ($qDate && $qName) {
             $qb
                 ->where('category.date = :date')
                 ->andWhere('category.name = :name')
-                ->setParameter(':date', $q_date)
-                ->setParameter(':name', $q);
+                ->setParameter(':date', $qDate)
+                ->setParameter(':name', $qName);
             $result = $qb->getQuery()->getResult();
         }
 

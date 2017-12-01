@@ -12,14 +12,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ExerciseType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choicesCategory = [];
@@ -27,7 +27,6 @@ class ExerciseType extends AbstractType
         foreach ($categorys as $category) {
             $choicesCategory[$category->getName()] = $category;
         };
-
 
         $builder
             ->add('name', TextType::class, [

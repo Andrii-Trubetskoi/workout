@@ -101,4 +101,20 @@ class Category
     {
         $this->date = $date;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getExercises()
+    {
+        return $this->exercises;
+    }
+
+    /**
+     * @param mixed $exercises
+     */
+    public function setExercises($exercises)
+    {
+        $this->exercises = $exercises;
+    }
 }
