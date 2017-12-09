@@ -100,7 +100,7 @@ class Exercise
     }
 
     /**
-     * @return date
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -108,7 +108,7 @@ class Exercise
     }
 
     /**
-     * @param date $date
+     * @param \DateTime $date
      */
     public function setDate($date)
     {
@@ -148,7 +148,7 @@ class Exercise
     }
 
     /**
-     * @return mixed
+     * @return Category
      */
     public function getCategory()
     {
@@ -156,9 +156,9 @@ class Exercise
     }
 
     /**
-     * @param mixed $category
+     * @param Category $category
      */
-    public function setCategory($category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
     }

@@ -41,3 +41,6 @@ services:
         public: true
         alias: AppBundle\Command\LoadTestFixtures
 
+    AppBundle\EventListener\SearchCategory:
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
