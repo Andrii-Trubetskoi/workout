@@ -8,9 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExerciseRepository")
  */
-class Category
+class Exercise
 {
     /**
      * @var int
@@ -43,9 +43,22 @@ class Category
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="Exercise", mappedBy="category")
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 500,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
-    private $exercises;
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="exercises")
+     */
+    private $category;
 
     public function __construct()
     {
@@ -103,18 +116,50 @@ class Category
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getExercises()
+    public function getDesctiption()
     {
-        return $this->exercises;
+        return $this->desctiption;
     }
 
     /**
-     * @param mixed $exercises
+     * @param string $desctiption
      */
-    public function setExercises($exercises)
+    public function setDesctiption($desctiption)
     {
-        $this->exercises = $exercises;
+        $this->desctiption = $desctiption;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 }

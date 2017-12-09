@@ -14,6 +14,21 @@ class CategoryController extends Controller
         return new Response('<h1>category list</h1>');
     }
 
+    public function singleAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $exersices = $em->getRepository('AppBundle:Exercise')
+            ->findBy(
+                array('category' => $id)
+            );
+        $category = $em->getRepository('AppBundle:Category')->find($id);
+
+        return $this->render('category/category.html.twig', array(
+            'category' => $category,
+            'exercises' => $exersices
+        ));
+    }
+
     public function createAction(Request $request)
     {
         $category = new Category();

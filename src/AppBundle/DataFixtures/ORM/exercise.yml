@@ -1,0 +1,6 @@
+AppBundle\Entity\Exercise:
+    exercise_{1..10}:
+        name: <name()>
+        date: <dateTimeBetween("-200 days", "now")>
+        description: 'Some description'
+        category: "@category_<current()>"
