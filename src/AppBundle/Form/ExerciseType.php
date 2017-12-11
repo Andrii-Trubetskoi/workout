@@ -2,6 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Exercise;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ExerciseType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -40,7 +46,14 @@ class ExerciseType extends AbstractType
             ])
             ->add('category', ChoiceType::class, array(
                 'choices' => $choicesCategory,
-            ));
+            ))
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $newExercise = $event->getData();
+                $exercise = $this->em->getRepository(Exercise::class)->findOneBy(['name' => $newExercise['name']]);
+                if ($exercise) {
+                    throw new Exception('There are Exercise with same name!');
+                }
+            });
     }
 
     /**
