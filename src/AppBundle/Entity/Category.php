@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,13 +44,16 @@ class Category
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="Exercise", mappedBy="category")
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Exercise", mappedBy="category", cascade={"remove"})
      */
     private $exercises;
 
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->exercises = new ArrayCollection();
     }
 
     /**
@@ -103,18 +107,21 @@ class Category
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getExercises()
     {
         return $this->exercises;
     }
 
-    /**
-     * @param mixed $exercises
-     */
-    public function setExercises($exercises)
+    public function addExercise(Exercise $exercise)
     {
-        $this->exercises = $exercises;
+        $this->exercises->add($exercise);
+        $exercise->setCategory($this);
+    }
+
+    public function removeExercise(Exercise $exercise)
+    {
+        $this->exercises->removeElement($exercise);
     }
 }
